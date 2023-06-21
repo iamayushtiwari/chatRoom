@@ -1,0 +1,6 @@
+module.exports.createSession = function(req,res){
+    return res.json({
+        status:200,
+        message:"Session Created"
+    })
+}

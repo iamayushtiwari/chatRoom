@@ -1,0 +1,15 @@
+<link rel="stylesheet" href="/css/header.css">
+<header>
+    <div class="topnav">
+        <a class="active" href="/">Home</a>
+        <% if(locals.user){%>
+            <a>
+                <%=user.name%>
+            </a>
+            <%}else{%>
+                <a href="/users/signin">Signin</a>
+                <a href="/users/signup">Signup</a>
+                <%}%>
+                    <a href="/about">About</a>
+    </div>
+</header>
