@@ -6,18 +6,24 @@ const expresslayout = require('express-ejs-layouts')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session);
-const passport = require('passport')
-const passportJWTStrategy = require('./config/passport-jwt-strategy')
 const db = require('./config/mongoose')
 const user = require('./model/user')
+var cors = require('cors')
 
+app.use(cors({origin:'*'}))
+
+const chatServer = require('http').Server(app);
+const chatSockets = require('./config/chat_sockets').chatSockets(chatServer)
+chatServer.listen(5000)
+// console.log('chat server is listen on port: 5000');
+
+ 
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'views'))
 app.use(express.urlencoded())
 app.use(cookieParser())
 app.use(express.static('./assets'))
-app.use(expresslayout)
-
+app.use(expresslayout) 
 app.use(session({
     name: "chatRoom",
     secret: "H@MbQeThWm",
@@ -36,8 +42,6 @@ app.use(session({
         }
     )
 }))
-app.use(passport.initialize())
-app.use(passport.session())
 // app.use(passport.setAuthenticatedUser)
 app.use('/',require('./router'))
 

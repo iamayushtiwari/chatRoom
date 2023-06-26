@@ -6,12 +6,12 @@ main().catch(err => console.log(err));
 
 async function main() {
   await mongoose.connect('mongodb://127.0.0.1:27017/chatroom_development');
-  console.log("database loaded")
+  // console.log("database loaded")
   // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
 }
 db.on('error', console.error.bind(console, "Error connecting to db"));
 
 db.once('open', function(){
-    console.log("connected to DB"); 
+    // console.log("connected to DB"); 
 })
 module.exports=db;

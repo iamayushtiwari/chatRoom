@@ -1,10 +1,13 @@
 const User = require("../model/user")
 const jwt = require('jsonwebtoken')
 
-module.exports.signin = function(res,res){
+module.exports.signin = function(req,res){
     return res.render('userSignin',{title:"Signin Page"})
 }
-
+module.exports.logout = function(req,res){
+    res.clearCookie("jwt_token");
+    return res.redirect("/users/signin")
+}
 module.exports.signup = function(res,res){
     return res.render('userSignup',{title:"Signup Page"})
 }
@@ -32,16 +35,26 @@ module.exports.createSession = async function(req,res){
                 message :"Invalid User and Password"
             })
         }
-        let jwtToken = jwt.sign(user.toJSON(),'secretKey',{expiresIn:'1000000000'})
-        //res.set('Authorization', `Bearer ${jwtToken}`);
+        let jwtToken = await jwt.sign({
+            _id: user._id,
+            email: user.email,
+            name: user.name,
+        },'secretKey',{expiresIn: "1h"})
 
-        res.cookie('token', jwtToken, { httpOnly: true, secure: true });
-        return res.json(200,{
-            message:"signin Successfully here is your token",
-            data:{
-                token:jwtToken,
-            }
-        })
+        // res.set("Authorization",`Bearer ${jwtToken}`)
+        // res.setHeader('authorization', `Bearer ${jwtToken}`);
+         res.cookie('jwt_token', jwtToken);
+         res.redirect('/room/chooseroom')
+        // res.send(jwtToken);
+        res
+    // .status(200)
+    // .json({
+    //   success: true,
+    //   data: {
+    //     user:user,
+    //     token: jwtToken,
+    //   },
+    // });
     }catch(error){
         console.log(error)
         return res.json(200,{
@@ -49,9 +62,4 @@ module.exports.createSession = async function(req,res){
             "message":`ERROR:${error}`
         })
     }
-}
-module.exports.test = function(req, res){
-    return res.json({
-        status : 'successfull',
-    })
 }
