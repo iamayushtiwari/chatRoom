@@ -6,7 +6,7 @@ const userController = require('../controllers/user_Controller')
 const welcomeController = require('../controllers/welcome_controller')
 const JwtAuth = require('../config/JWTAuth')
 
-// console.log("router is working fine");
+
 router.get('/',JwtAuth.auth,welcomeController.welcome)
 router.get('/about',JwtAuth.auth,aboutController.about)
 router.get('/logout',JwtAuth.auth,userController.logout)

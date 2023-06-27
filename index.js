@@ -15,7 +15,7 @@ app.use(cors({origin:'*'}))
 const chatServer = require('http').Server(app);
 const chatSockets = require('./config/chat_sockets').chatSockets(chatServer)
 chatServer.listen(5000)
-// console.log('chat server is listen on port: 5000');
+
 
  
 app.set('view engine','ejs');
@@ -42,7 +42,7 @@ app.use(session({
         }
     )
 }))
-// app.use(passport.setAuthenticatedUser)
+
 app.use('/',require('./router'))
 
 

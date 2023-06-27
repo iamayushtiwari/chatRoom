@@ -21,7 +21,7 @@ module.exports.chatSockets = function (socketServer) {
         })
         //if the user is typing brodcast
         socket.on("typing", async data => {
-            console.log(`${data.username} is typing....`)
+            // console.log(`${data.username} is typing....`)
             io.in(data.chatroom).emit('typing', data);
         })
 
