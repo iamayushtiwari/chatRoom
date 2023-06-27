@@ -4,7 +4,7 @@ class ChatEngine {
         this.userName = userName;
         this.chatRoom = chatRoom;
         // console.log(userName);
-        this.socket = io.connect('http://192.168.18.11:5000')
+        this.socket = io.connect('http://localhost:5000')
         if (this.userName && this.chatRoom) {
             this.connectionHandler();
         }
