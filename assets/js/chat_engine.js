@@ -4,7 +4,7 @@ class ChatEngine {
         this.userName = userName;
         this.chatRoom = chatRoom;
         // console.log(userName);
-        this.socket = io.connect('http://localhost:5000')
+        this.socket = io.connect('http://192.168.18.11:5000')
         if (this.userName && this.chatRoom) {
             this.connectionHandler();
         }
@@ -89,11 +89,11 @@ class ChatEngine {
         self.socket.on('typing', function (data) {
             if (data.username != self.userName) {
                 $('#typing-display-text').text(`${data.username} typing...`)
-                setTimeout(function(){ $('#typing-display-text').text('') }, 2000)
+                setTimeout(function () { $('#typing-display-text').text('') }, 2000)
             }
         })
         self.socket.on('receive_message', function (data) {
-            console.log('message Received', data.message);
+            // console.log('message Received', data.message);
             if (data.username == self.userName) {
                 $('.msg_history').append(
                     `<div class="outgoing_msg">
@@ -120,6 +120,8 @@ class ChatEngine {
             }
             $('.chat_lastMessage').text(data.message)
             $('#chat-message-input').val('')
+            var objDiv = document.getElementById('chat_Container');
+            objDiv.scrollTop = objDiv.scrollHeight;
         })
     }
 }
