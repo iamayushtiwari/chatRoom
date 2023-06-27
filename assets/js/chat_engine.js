@@ -44,7 +44,8 @@ class ChatEngine {
                 </div>`
                     )
                 }
-
+            var objDiv = document.getElementById('chat_Container');
+            objDiv.scrollTop = objDiv.scrollHeight;
             })
 
         })
