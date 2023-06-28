@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "restartdb" : "brew services restart mongodb-community@4.4"
   },
   "keywords": [],
   "author": "",

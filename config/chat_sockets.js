@@ -26,9 +26,23 @@ module.exports.chatSockets = function (socketServer) {
         })
 
         //CHANGE :: detect send_message and broadcast to everyone in the room
-        socket.on('send_message', function (data) {
-            console.log(`Data on server ${data.message}`);
+        socket.on('send_message', async function (data) {
+            // console.log(`Data on server ${data.message}`);
             io.in(data.chatroom).emit('receive_message', data);
+            try {
+                let user = await User.findOne({ name: data.username })
+                let chatroom = await Rooms.findOne({ roomName: data.chatroom })
+               let newChat =  await Chats.create({
+                    message: data.message,
+                    users: user,
+                    rooms: chatroom
+                })
+                await chatroom.chats.push(newChat)
+                chatroom.save()
+            }
+            catch (err) {
+                console.error(err);
+            }
         })
     })
 
