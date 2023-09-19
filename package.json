@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "restartdb" : "brew services restart mongodb-community@4.4"
+    "restartdb": "brew services restart mongodb-community@4.4"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +19,7 @@
     "express-ejs-layouts": "^2.5.1",
     "express-session": "^1.17.3",
     "jsonwebtoken": "^9.0.0",
+    "mongodb": "^6.1.0",
     "mongoose": "^7.3.1",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
